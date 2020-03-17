@@ -1,0 +1,94 @@
+$navbar-height: 80px;
+
+.App {
+  text-align: center;
+  background: #e4e3e3;
+  padding: 0 10px;
+  padding-top: $navbar-height + 20px;
+  font-family: 'Rubik', sans-serif;
+  direction: rtl;
+
+  .navbar {
+    direction: ltr;
+    font-family: 'Dancing Script', cursive;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: $navbar-height;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.2);
+    color: #007bff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 40px;
+    background: white;
+    padding: 0 15px;
+    z-index: 1;
+
+    .profile {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-image: url(/yuval.jpg);
+      background-size: 180%;
+      background-position: 50%;
+    }
+  }
+
+  .add-meal-button {
+    padding: 4px;
+    background: white;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.2);
+
+    .background {
+      height: 120px;
+      background: white;
+      background-image: url(/food.jpg);
+      background-size: 100%;
+      background-position: 0;
+      position: relative;
+
+      &:after {
+        content: 'הוסף מנה';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: white;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .meal {
+    margin: 20px auto;
+    background: white;
+    padding: 4px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+
+    .image {
+      width: 100%;
+    }
+
+    .details {
+      padding: 10px;
+      text-align: right;
+
+      .name {
+        font-size: 25px;
+      }
+
+      .prep-time {
+        font-size: 18px;
+        color: #777;
+      }
+    }
+  }
+}

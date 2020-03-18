@@ -15,8 +15,24 @@ const navbarProps = {
   }
 }
 
+const mockIngredients = {
+  'blah-1': {
+    name: 'שום כתוש',
+    quantity: 5
+  },
+  'blah-2': {
+    name: 'בצל גדול',
+    quantity: 1
+  },
+  'blah-3': {
+    name: 'אורז לבן',
+    quantity: 1
+  }
+};
+
 function App() {
   const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
+  // const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
 
   const moveToNewMealPage = () => setCurrentPage(NEW_MEAL_PAGE);
   const moveToMealsListPage = () => setCurrentPage(MEALS_LIST_PAGE);
@@ -31,9 +47,64 @@ function App() {
 }
 
 const NewMealPage = ({isCurrentPage}) => {
+  const [ingredients, setIngredients] = useState(mockIngredients);
+  const [ingredientName, setIngredientName] = useState('');
+  const [ingredientQuantity, setIngredientQuantity] = useState('');
+
+  const ingredientList = Object.keys(ingredients).map(id => ({
+    id,
+    ...ingredients[id]
+  }));
+
+  const addNewIngredient = () => {
+    if (!ingredientName || !ingredientQuantity) {
+      return;
+    }
+
+    const newIngredient = {
+      name: ingredientName,
+      quantity: ingredientQuantity
+    };
+
+    setIngredientName('');
+    setIngredientQuantity('');
+
+    setIngredients({...ingredients, [`${newIngredient.name}-1`]: newIngredient});
+  }
+
+  const removeIngredient = (id) => {
+    const newIngredients = {...ingredients};
+    Reflect.deleteProperty(newIngredients, id);
+
+    setIngredients(newIngredients);
+  }
+
   return (
-    <Page isCurrentPage={isCurrentPage}>
-      create new meal
+    <Page isCurrentPage={isCurrentPage} className="new-meal-page">
+      <input type="text" placeholder="תן שם למנה" />
+
+      <div className="field">
+        <div className="label">מצרכים למנה</div>
+        <div className="ingredients-container">
+          {ingredientList.length === 0 ?
+              <div className="list empty-list">עוד לא הוספת מצרכים</div>
+            :
+            <div className="list">
+              {ingredientList.map(ingredient =>
+                <IngredientItem
+                  key={ingredient.id}
+                  ingredient={ingredient}
+                  removeIngredient={removeIngredient}
+                />
+              )}
+            </div>
+          }
+        </div>
+      </div>
+
+      <input type="text" placeholder="הוסף מצרך" value={ingredientName} onChange={(e) => setIngredientName(e.target.value)} />
+      <input type="text" placeholder="הוסף כמות" value={ingredientQuantity} onChange={(e) => setIngredientQuantity(e.target.value)} />
+      <div className="add-ingredient-button" onClick={addNewIngredient}>הוסף מצרך</div>
     </Page>
   );
 }
@@ -54,9 +125,9 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage}) => {
   );
 }
 
-const Page = ({children, isCurrentPage}) => {
+const Page = ({children, isCurrentPage, className}) => {
   return (
-    <div className={`page ${isCurrentPage ? 'opened' : 'closed'}`}>
+    <div className={`page ${className} ${isCurrentPage ? 'opened' : 'closed'}`}>
       {children}
     </div>
   );
@@ -100,4 +171,22 @@ const AddMealButton = ({onClick}) => {
   );
 }
 
+const IngredientItem = ({ingredient, removeIngredient}) => {
+  const handleRemoveClick = () => {
+    removeIngredient(ingredient.id);
+  }
+
+  return (
+    <div className="ingredient-item">
+      <div className="v-icon"></div>
+      <div className="name">{ingredient.name}</div>
+      <div class="left-side">
+        <div className="quantity">{ingredient.quantity}</div>
+        <div className="remove-button" onClick={handleRemoveClick}></div>
+      </div>
+    </div>
+  );
+}
+
 export default App;
+

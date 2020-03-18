@@ -189,4 +189,3 @@ const IngredientItem = ({ingredient, removeIngredient}) => {
 }
 
 export default App;
-

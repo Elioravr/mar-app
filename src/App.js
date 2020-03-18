@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.scss';
 
 function App() {
   return (
     <div className="App">
-      <div className="navbar">
-        <span>Mami, I'm Hungry</span>
-        <div className="profile"></div>
-      </div>
+      <MealsListPage />
+    </div>
+  );
+}
 
+const MealsListPage = () => {
+  return (
+    <>
+      <Navbar title="Mami I'm Hungry" shouldHaveProfile={true} />
       <AddMealButton />
 
       <MealItem />
@@ -18,8 +22,23 @@ function App() {
       <MealItem />
       <MealItem />
       <MealItem />
-    </div>
+    </>
   );
+}
+
+const Navbar = ({title, shouldHaveProfile}) => {
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const profileClassName = `profile ${isProfileOpen ? 'wide' : ''}`;
+
+    const handleProfileClick = () => setIsProfileOpen(!isProfileOpen)
+
+    return (
+      <div className="navbar">
+        <span>{title}</span>
+        {shouldHaveProfile && isProfileOpen && <div className="backdrop"></div>}
+        {shouldHaveProfile && <div className={profileClassName} onClick={handleProfileClick}></div>}
+      </div>
+    )
 }
 
 const MealItem = () => {

@@ -26,6 +26,15 @@ $navbar-height: 80px;
     padding: 0 15px;
     z-index: 1;
 
+    .backdrop {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.9);
+    }
+
     .profile {
       width: 60px;
       height: 60px;
@@ -33,6 +42,19 @@ $navbar-height: 80px;
       background-image: url(/yuval.jpg);
       background-size: 180%;
       background-position: 50%;
+      background-repeat: no-repeat;
+
+
+        &.wide {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: auto;
+          height: auto;
+          border-radius: 0;
+      }
     }
   }
 

@@ -145,7 +145,7 @@ const Navbar = ({title, shouldHaveProfile, shouldHaveCancelButton, moveToMealsLi
         {shouldHaveProfile && isProfileOpen && <div className="backdrop"></div>}
         {shouldHaveProfile && <div className={profileClassName} onClick={handleProfileClick}></div>}
         {shouldHaveCancelButton &&
-          <div className="close-button" onClick={moveToMealsListPage}></div>
+          <div className="close-button" onClick={moveToMealsListPage}>✖️</div>
         }
       </div>
     )
@@ -178,11 +178,11 @@ const IngredientItem = ({ingredient, removeIngredient}) => {
 
   return (
     <div className="ingredient-item">
-      <div className="v-icon"></div>
+      <div className="v-icon">✔️</div>
       <div className="name">{ingredient.name}</div>
       <div class="left-side">
         <div className="quantity">{ingredient.quantity}</div>
-        <div className="remove-button" onClick={handleRemoveClick}></div>
+        <div className="remove-button" onClick={handleRemoveClick}>🗑</div>
       </div>
     </div>
   );

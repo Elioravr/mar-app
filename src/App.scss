@@ -1,4 +1,5 @@
 $navbar-height: 80px;
+$main-color: #007bff;
 
 .App {
   text-align: center;
@@ -38,7 +39,7 @@ $navbar-height: 80px;
     top: 0;
     height: $navbar-height;
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.2);
-    color: #007bff;
+    color: $main-color;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -82,11 +83,14 @@ $navbar-height: 80px;
     }
 
     .close-button {
-      background-image: url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-close-512.png);
       background-size: 100%;
       width: 25px;
       height: 25px;
+      font-size: 28px;
       opacity: 0.5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
@@ -98,20 +102,17 @@ $navbar-height: 80px;
     .background {
       height: 120px;
       background: white;
-      background-image: url(/food.JPG);
-      background-size: 100%;
-      background-position: 0;
       position: relative;
+      background: $main-color;
 
       &:after {
-        content: 'הוסף מנה';
+        content: '🍔 הוסף מנה 🍜';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         color: white;
-        background: rgba(0, 0, 0, 0.4);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -121,7 +122,7 @@ $navbar-height: 80px;
 
       &:active {
         &:after {
-          background: rgba(0, 0, 0, 0.7);
+          background: rgba(0, 0, 0, 0.4);
         }
       }
     }
@@ -196,12 +197,15 @@ $navbar-height: 80px;
           }
 
           .v-icon {
-            background-image: url(https://lh3.googleusercontent.com/proxy/PV7mXRjKUowIJgDADka2ptwNv2_qdgDS9VLxSrmu3DuEtOMrI8R1wo4AJc9b2qvd3Uqg_KSxl22UdCx7BtRF3KQaeTMz3TisoOAoxqlWC_PbSDjoSSGXKuxlhOlL4xqn26jSlwe4HrB6EhDhClKb27g);
             background-size: 100%;
             width: 22px;
             height: 22px;
             opacity: 0.5;
             margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -5px;
           }
 
           .left-side {
@@ -223,12 +227,14 @@ $navbar-height: 80px;
             }
 
             .remove-button {
-              background-image: url(https://iconsplace.com/wp-content/uploads/_icons/ff0000/256/png/trash-icon-14-256.png);
-              background-size: 100%;
               width: 22px;
-              height: 22px;
+              height: 100%;
               opacity: 0.5;
               margin: 0 10px;
+              font-size: 22px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
             }
           }
         }
@@ -245,7 +251,7 @@ $navbar-height: 80px;
     margin: 10px 0;
     width: 100%;
     line-height: 40px;
-    background: #007bff;
+    background: $main-color;
     color: white;
     font-size: 18px;
 

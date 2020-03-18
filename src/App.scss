@@ -2,11 +2,32 @@ $navbar-height: 80px;
 
 .App {
   text-align: center;
-  background: #e4e3e3;
-  padding: 0 10px;
-  padding-top: $navbar-height + 20px;
   font-family: 'Rubik', sans-serif;
   direction: rtl;
+
+  .page {
+    padding: 0 10px;
+    padding-top: $navbar-height + 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #e4e3e3;
+    min-height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    &.opened {
+      opacity: 1;
+    }
+
+    &.closed {
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+    }
+  }
 
   .navbar {
     direction: ltr;
@@ -55,6 +76,14 @@ $navbar-height: 80px;
           height: auto;
           border-radius: 0;
       }
+    }
+
+    .close-button {
+      background-image: url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-close-512.png);
+      background-size: 100%;
+      width: 25px;
+      height: 25px;
+      opacity: 0.5;
     }
   }
 
@@ -113,4 +142,9 @@ $navbar-height: 80px;
       }
     }
   }
+}
+
+@keyframes fade-in {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }

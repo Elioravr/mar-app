@@ -32,8 +32,8 @@ const mockIngredients = {
 };
 
 function App() {
-  const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
-  // const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
+  // const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
+  const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
 
   const moveToNewMealPage = () => setCurrentPage(NEW_MEAL_PAGE);
   const moveToMealsListPage = () => setCurrentPage(MEALS_LIST_PAGE);
@@ -85,6 +85,8 @@ const NewMealPage = ({isCurrentPage}) => {
       <input type="text" placeholder="תן שם למנה" />
       <input type="text" placeholder="כמה זמן לוקח להכין אותה?" />
 
+      <div className="separator">🥑</div>
+
       <div className="field">
         <div className="label">מצרכים למנה</div>
         <div className="ingredients-container">
@@ -107,6 +109,8 @@ const NewMealPage = ({isCurrentPage}) => {
       <input type="text" placeholder="שם המצרך" value={ingredientName} onChange={(e) => setIngredientName(e.target.value)} />
       <input type="text" placeholder="הוסף כמות" value={ingredientQuantity} onChange={(e) => setIngredientQuantity(e.target.value)} />
       <div className="add-ingredient-button" onClick={addNewIngredient}>הוסף מצרך</div>
+
+      <div className="separator">🍩</div>
     </Page>
   );
 }

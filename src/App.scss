@@ -169,6 +169,22 @@ $main-color: #007bff;
     margin-bottom: 10px;
   }
 
+  .separator {
+    font-size: 40px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:before, &:after {
+      content: '';
+      width: 100px;
+      height: 1px;
+      background: #777;
+      margin: 20px;
+    }
+  }
+
   .field {
     margin: 20px 0;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);

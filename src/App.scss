@@ -285,13 +285,11 @@ $main-color: #007bff;
     font-size: 22px;
     background: rgba(255, 255, 255, 0.8);
     margin: 20px 0;
+    background-size: cover;
+    background-position: 50%;
 
     .icon {
       font-size: 40px;
-    }
-
-    img {
-      height: 200px;
     }
   }
 
@@ -325,6 +323,25 @@ $main-color: #007bff;
 
   .text {
     font-size: 20px;
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .box {
+    background: rgba(0, 0, 0, 0.6);
+    width: 200px;
+    color: white;
+    border-radius: 20px;
   }
 }
 

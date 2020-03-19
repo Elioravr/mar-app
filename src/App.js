@@ -34,8 +34,9 @@ const mockIngredients = {
 const scrollToTop = () => window.scrollTo(0, 0, 'easeInOutQuint');
 
 function App() {
-  // const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
-  const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
+  const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
+  // const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
+  const [isLoading, setIsLoading] = useState(false);
 
   const moveToNewMealPage = () => {
     scrollToTop();
@@ -45,17 +46,27 @@ function App() {
     scrollToTop();
     setCurrentPage(MEALS_LIST_PAGE)
   };
+  const setGlobalIsLoading = (value) => {
+    setIsLoading(value)
+  }
 
   return (
     <div className="App">
       <Navbar {...navbarProps[currentPage]} moveToMealsListPage={moveToMealsListPage} />
-      <MealsListPage moveToNewMealPage={moveToNewMealPage} isCurrentPage={currentPage === MEALS_LIST_PAGE} />
-      <NewMealPage isCurrentPage={currentPage === NEW_MEAL_PAGE} />
+      <MealsListPage
+        moveToNewMealPage={moveToNewMealPage}
+        isCurrentPage={currentPage === MEALS_LIST_PAGE}
+      />
+      <NewMealPage
+        isCurrentPage={currentPage === NEW_MEAL_PAGE}
+        setGlobalIsLoading={setGlobalIsLoading}
+      />
+      {isLoading && <LoadingOverlay />}
     </div>
   );
 }
 
-const NewMealPage = ({isCurrentPage}) => {
+const NewMealPage = ({isCurrentPage, setGlobalIsLoading}) => {
   const [ingredients, setIngredients] = useState(mockIngredients);
   const [ingredientName, setIngredientName] = useState('');
   const [ingredientQuantity, setIngredientQuantity] = useState('');
@@ -92,8 +103,10 @@ const NewMealPage = ({isCurrentPage}) => {
   const handleFileSelection = (e) => {
     const [file] = e.target.files;
 
+    setGlobalIsLoading(true);
     uploadImage(file).then((downloadURL) => {
       setImageURL(downloadURL);
+      setGlobalIsLoading(false);
     });
   }
 
@@ -129,10 +142,8 @@ const NewMealPage = ({isCurrentPage}) => {
 
       <div className="separator">🍩</div>
 
-      <div className="image-placeholder">
-        {imageURL ?
-          <img src={imageURL} />
-          :
+      <div className="image-placeholder" style={{backgroundImage: `url(${imageURL})`}}>
+        {!imageURL &&
           <>
             <div className="icon">🍽</div>
             <div>עוד לא העלית תמונה!</div>
@@ -247,22 +258,22 @@ const IngredientItem = ({ingredient, removeIngredient}) => {
 
 let intervalId;
 const Loading = () => {
-  clearInterval(intervalId);
-
   const icons = ['🍔', '🍕', '🥡', '🥗', '🍪'];
   const [currentStage, setCurrentStage] = useState(0);
 
-  intervalId = setInterval(() => {
-    let nextStage = currentStage + 1;
-
-    if (nextStage === icons.length) {
-      nextStage = 0;
-    }
-
-    setCurrentStage(nextStage);
-  }, 1000);
 
   useEffect(() => {
+    clearInterval(intervalId);
+    intervalId = setInterval(() => {
+      let nextStage = currentStage + 1;
+
+      if (nextStage === icons.length) {
+        nextStage = 0;
+      }
+
+      setCurrentStage(nextStage);
+    }, 1000);
+
     return () => {
       clearInterval(intervalId);
     }
@@ -272,6 +283,16 @@ const Loading = () => {
     <div className="loading-container">
       {icons.map((icon, index) => currentStage === index ? <div key={index} className="stage">{icon}</div> : null)}
       <span className="text">סבלנות מאמי...</span>
+    </div>
+  );
+}
+
+const LoadingOverlay = () => {
+  return (
+    <div className="loading-overlay">
+      <div className="box">
+        <Loading />
+      </div>
     </div>
   );
 }

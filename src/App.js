@@ -112,11 +112,14 @@ const NewMealPage = ({isCurrentPage}) => {
 
 const MealsListPage = ({moveToNewMealPage, isCurrentPage}) => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
+    setIsLoading(true);
     fetchMeals().then((meals) => {
       setMeals(meals);
+      setIsLoading(false);
     })
   }, []);
 
@@ -124,7 +127,11 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage}) => {
     <Page isCurrentPage={isCurrentPage}>
       <AddMealButton onClick={moveToNewMealPage} />
 
-      {meals.map(meal => <MealItem key={meal.id} meal={meal} />)}
+      {isLoading ?
+        <Loading />
+        :
+        meals.map(meal => <MealItem key={meal.id} meal={meal} />)
+      }
     </Page>
   );
 }
@@ -195,6 +202,37 @@ const IngredientItem = ({ingredient, removeIngredient}) => {
         <div className="quantity">{ingredient.quantity}</div>
         <div className="remove-button" onClick={handleRemoveClick}>🗑</div>
       </div>
+    </div>
+  );
+}
+
+let intervalId;
+const Loading = () => {
+  clearInterval(intervalId);
+
+  const icons = ['🍔', '🍕', '🥡', '🥗', '🍪'];
+  const [currentStage, setCurrentStage] = useState(0);
+
+  intervalId = setInterval(() => {
+    let nextStage = currentStage + 1;
+
+    if (nextStage === icons.length) {
+      nextStage = 0;
+    }
+
+    setCurrentStage(nextStage);
+  }, 1000);
+
+  useEffect(() => {
+    return () => {
+      clearInterval(intervalId);
+    }
+  })
+
+  return (
+    <div className="loading-container">
+      {icons.map((icon, index) => currentStage === index ? <div key={index} className="stage">{icon}</div> : null)}
+      <span className="text">סבלנות מאמי...</span>
     </div>
   );
 }

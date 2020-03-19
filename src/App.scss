@@ -264,11 +264,36 @@ $main-color: #007bff;
   }
 }
 
+.loading-container {
+  padding: 50px;
+
+  .stage {
+    font-size: 70px;
+    animation: icon-popup 1s ease-in-out infinite;
+  }
+
+  .text {
+    font-size: 20px;
+  }
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes icon-popup {
+  0% {
+    transform: scale(0) rotate(-90deg);
+  }
+  50% {
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    transform: scale(0) rotate(90deg);
   }
 }

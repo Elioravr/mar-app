@@ -31,12 +31,20 @@ const mockIngredients = {
   }
 };
 
-function App() {
-  // const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
-  const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
+const scrollToTop = () => window.scrollTo(0, 0, 'easeInOutQuint');
 
-  const moveToNewMealPage = () => setCurrentPage(NEW_MEAL_PAGE);
-  const moveToMealsListPage = () => setCurrentPage(MEALS_LIST_PAGE);
+function App() {
+  const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
+  // const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
+
+  const moveToNewMealPage = () => {
+    scrollToTop();
+    setCurrentPage(NEW_MEAL_PAGE)
+  };
+  const moveToMealsListPage = () => {
+    scrollToTop();
+    setCurrentPage(MEALS_LIST_PAGE)
+  };
 
   return (
     <div className="App">
@@ -108,9 +116,19 @@ const NewMealPage = ({isCurrentPage}) => {
 
       <input type="text" placeholder="שם המצרך" value={ingredientName} onChange={(e) => setIngredientName(e.target.value)} />
       <input type="text" placeholder="הוסף כמות" value={ingredientQuantity} onChange={(e) => setIngredientQuantity(e.target.value)} />
-      <div className="add-ingredient-button" onClick={addNewIngredient}>הוסף מצרך</div>
+      <div className="add-ingredient-button secondary-button" onClick={addNewIngredient}>הוסף מצרך</div>
 
       <div className="separator">🍩</div>
+
+      <div className="image-placeholder">
+        <div className="icon">🍽</div>
+        <div>עוד לא העלית תמונה!</div>
+      </div>
+      <div className="upload-image-button secondary-button">העלה תמונה של המנה</div>
+
+      <div className="separator">🍅</div>
+
+      <div className="submit-button" onClick={addNewIngredient}>הוסף מנה!</div>
     </Page>
   );
 }

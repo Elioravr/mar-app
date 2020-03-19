@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {fetchMeals} from './services/api'
 import './App.scss';
 
 const MEALS_LIST_PAGE = 'mealsListPage';
@@ -110,17 +111,20 @@ const NewMealPage = ({isCurrentPage}) => {
 }
 
 const MealsListPage = ({moveToNewMealPage, isCurrentPage}) => {
+  const [meals, setMeals] = useState([]);
+
+
+  useEffect(() => {
+    fetchMeals().then((meals) => {
+      setMeals(meals);
+    })
+  }, []);
+
   return (
     <Page isCurrentPage={isCurrentPage}>
       <AddMealButton onClick={moveToNewMealPage} />
 
-      <MealItem />
-      <MealItem />
-      <MealItem />
-      <MealItem />
-      <MealItem />
-      <MealItem />
-      <MealItem />
+      {meals.map(meal => <MealItem key={meal.id} meal={meal} />)}
     </Page>
   );
 }
@@ -158,13 +162,13 @@ const Navbar = ({title, shouldHaveProfile, shouldHaveCancelButton, moveToMealsLi
     )
 }
 
-const MealItem = () => {
+const MealItem = ({meal}) => {
   return (
     <div className="meal">
-      <img className="image" src="https://therecipe.website/wp-content/uploads/2017/09/Mushroom-Risotto-600x600.jpg" alt="" />
+      <img className="image" src={meal.imageSrc} alt="" />
       <div className="details">
-        <div className="name">ריזוטו פטריות</div>
-        <div className="prep-time">40 דקות הכנה</div>
+        <div className="name">{meal.name}</div>
+        <div className="prep-time">{meal.duration} הכנה</div>
       </div>
     </div>
   );

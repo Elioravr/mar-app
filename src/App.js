@@ -133,9 +133,16 @@ const Page = ({children, isCurrentPage, className}) => {
   );
 }
 
+const handleScroll = (e) => e.preventDefault();
 const Navbar = ({title, shouldHaveProfile, shouldHaveCancelButton, moveToMealsListPage}) => {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const profileClassName = `profile ${isProfileOpen ? 'wide' : ''}`;
+
+    if (isProfileOpen) {
+      document.addEventListener('wheel', handleScroll, {passive: false});
+    } else {
+      document.removeEventListener('wheel', handleScroll, {passive: false});
+    }
 
     const handleProfileClick = () => setIsProfileOpen(!isProfileOpen);
 
@@ -180,7 +187,7 @@ const IngredientItem = ({ingredient, removeIngredient}) => {
     <div className="ingredient-item">
       <div className="v-icon">✔️</div>
       <div className="name">{ingredient.name}</div>
-      <div class="left-side">
+      <div className="left-side">
         <div className="quantity">{ingredient.quantity}</div>
         <div className="remove-button" onClick={handleRemoveClick}>🗑</div>
       </div>

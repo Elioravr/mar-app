@@ -170,6 +170,14 @@ $main-color: #007bff;
     margin-bottom: 10px;
   }
 
+  .upload-image-input {
+    display: none;
+  }
+
+  .upload-image-button {
+    display: block;
+  }
+
   .separator {
     font-size: 40px;
     margin: 20px 0;
@@ -280,6 +288,10 @@ $main-color: #007bff;
 
     .icon {
       font-size: 40px;
+    }
+
+    img {
+      height: 200px;
     }
   }
 

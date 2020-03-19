@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {fetchMeals} from './services/api'
+import {fetchMeals, uploadImage} from './services/api'
 import './App.scss';
 
 const MEALS_LIST_PAGE = 'mealsListPage';
@@ -34,8 +34,8 @@ const mockIngredients = {
 const scrollToTop = () => window.scrollTo(0, 0, 'easeInOutQuint');
 
 function App() {
-  const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
-  // const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
+  // const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
+  const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
 
   const moveToNewMealPage = () => {
     scrollToTop();
@@ -59,6 +59,7 @@ const NewMealPage = ({isCurrentPage}) => {
   const [ingredients, setIngredients] = useState(mockIngredients);
   const [ingredientName, setIngredientName] = useState('');
   const [ingredientQuantity, setIngredientQuantity] = useState('');
+  const [imageURL, setImageURL] = useState('');
 
   const ingredientList = Object.keys(ingredients).map(id => ({
     id,
@@ -86,6 +87,14 @@ const NewMealPage = ({isCurrentPage}) => {
     Reflect.deleteProperty(newIngredients, id);
 
     setIngredients(newIngredients);
+  }
+
+  const handleFileSelection = (e) => {
+    const [file] = e.target.files;
+
+    uploadImage(file).then((downloadURL) => {
+      setImageURL(downloadURL);
+    });
   }
 
   return (
@@ -121,10 +130,17 @@ const NewMealPage = ({isCurrentPage}) => {
       <div className="separator">🍩</div>
 
       <div className="image-placeholder">
-        <div className="icon">🍽</div>
-        <div>עוד לא העלית תמונה!</div>
+        {imageURL ?
+          <img src={imageURL} />
+          :
+          <>
+            <div className="icon">🍽</div>
+            <div>עוד לא העלית תמונה!</div>
+          </>
+        }
       </div>
-      <div className="upload-image-button secondary-button">העלה תמונה של המנה</div>
+      <label htmlFor="image-upload-input" className="upload-image-button secondary-button">העלה תמונה של המנה</label>
+      <input id="image-upload-input" onChange={handleFileSelection} type="file" className="upload-image-input" />
 
       <div className="separator">🍅</div>
 

@@ -16,7 +16,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 const database = firebase.database();
-const storageRef = firebase.storage().ref();
+const storageRef = firebase.storage().ref('/meal-images');
 
 export const fetchMeals = () => {
   return database.ref('meals').once('value').then((snap) => {
@@ -26,4 +26,14 @@ export const fetchMeals = () => {
       return {id: mealId, ...meals[mealId]}
     });
   })
+}
+
+export const uploadImage = (file) => {
+  return storageRef.put(file).then((snap) => {
+    console.log('api.js snap', snap)
+    console.log('api.js snap.ref.getDownloadURL()', snap.ref.getDownloadURL())
+    return snap.ref.getDownloadURL().then((downloadURL) => {
+      return downloadURL;
+    });
+  });
 }

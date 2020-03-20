@@ -61,7 +61,7 @@ function App() {
         isCurrentPage={currentPage === NEW_MEAL_PAGE}
         setGlobalIsLoading={setGlobalIsLoading}
       />
-      {isLoading && <LoadingOverlay />}
+      <LoadingOverlay isVisible={isLoading} />
     </div>
   );
 }
@@ -287,9 +287,9 @@ const Loading = () => {
   );
 }
 
-const LoadingOverlay = () => {
+const LoadingOverlay = ({isVisible}) => {
   return (
-    <div className="loading-overlay">
+    <div className={`loading-overlay ${isVisible ? 'visible' : ''}`}>
       <div className="box">
         <Loading />
       </div>

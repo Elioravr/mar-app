@@ -22,9 +22,11 @@ export const fetchMeals = () => {
   return database.ref('meals').once('value').then((snap) => {
     const meals = snap.val();
 
-    return Object.keys(meals).map(mealId => {
+    const mealsWithSort = Object.keys(meals).map(mealId => {
       return {id: mealId, ...meals[mealId]}
     });
+
+    return mealsWithSort.sort((a, b) => b.createdAt - a.createdAt);
   })
 }
 

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 const MealItem = ({meal, removeMeal}) => {
+  const [isLoadingImage, setIsLoadingImage] = useState(true);
+
+  const handleImageLoaded = () => {
+    setIsLoadingImage(false);
+  }
+
   return (
     <div className="meal">
-      <img className="image" src={meal.imageSrc} alt="" />
+      <img className={`image ${isLoadingImage ? 'loading' : ''}`} src={meal.imageSrc} alt="" onLoad={handleImageLoaded} />
       <div className="details">
         <div className="name">{meal.name}</div>
         <div className="prep-time">{meal.duration} הכנה</div>

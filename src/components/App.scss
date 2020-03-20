@@ -140,6 +140,12 @@ $main-color: #007bff;
 
     .image {
       width: 100%;
+      height: 300px;
+      object-fit: cover;
+
+      &.loading {
+        animation: loading-image 1s ease-in-out infinite;
+      }
     }
 
     .details {
@@ -440,5 +446,17 @@ $main-color: #007bff;
   }
   100% {
     transform: scale(0) rotate(90deg);
+  }
+}
+
+@keyframes loading-image {
+  0% {
+    background: white;
+  }
+  50% {
+    background: #ccc;
+  }
+  100% {
+    background: white;
   }
 }

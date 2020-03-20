@@ -13,6 +13,11 @@ const MealItem = ({meal, removeMeal}) => {
     setIsIngredientListVisible(!isIngredientListVisible);
   }
 
+  const handleRemoveButtonClick = (e) => {
+    e.stopPropagation();
+    removeMeal(meal)
+  }
+
   return (
     <div className="meal" onClick={handleMealClick}>
       <img className={`image ${isLoadingImage ? 'loading' : ''}`} src={meal.imageSrc} alt="" onLoad={handleImageLoaded} />
@@ -25,7 +30,7 @@ const MealItem = ({meal, removeMeal}) => {
       </div>
       <div className="controls">
         <div className="button">ערוך</div>
-        <div className="button" onClick={() => removeMeal(meal)}>מחק</div>
+        <div className="button" onClick={handleRemoveButtonClick}>מחק</div>
       </div>
     </div>
   );

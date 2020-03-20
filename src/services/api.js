@@ -39,3 +39,7 @@ export const uploadImage = (file) => {
 export const createNewMeal = (meal) => {
   return database.ref('meals').push(meal);
 }
+
+export const removeMeal = (mealId) => {
+  return database.ref(`meals/${mealId}`).remove();
+}

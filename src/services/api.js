@@ -29,7 +29,7 @@ export const fetchMeals = () => {
 }
 
 export const uploadImage = (file) => {
-  return storageRef.put(file).then((snap) => {
+  return storageRef.child(`${Date.now()}`).put(file).then((snap) => {
     return snap.ref.getDownloadURL().then((downloadURL) => {
       return downloadURL;
     });

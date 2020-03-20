@@ -148,6 +148,15 @@ $main-color: #007bff;
       }
     }
 
+    .meal-ingredients {
+      padding: 10px;
+      display: none;
+
+      &.visible {
+        display: block;
+      }
+    }
+
     .details {
       padding: 10px;
       text-align: right;
@@ -224,80 +233,6 @@ $main-color: #007bff;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
     padding: 4px;
     background: white;
-
-    .label {
-      text-align: right;
-      padding: 10px 20px;
-      border-bottom: 1px solid #ccc;
-      margin-bottom: 10px;
-    }
-
-    .ingredients-container {
-      .list {
-        .ingredient-item {
-          display: flex;
-          height: 40px;
-          position: relative;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-
-          .name {
-            padding: 0 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-
-          .v-icon {
-            background-size: 100%;
-            width: 22px;
-            height: 22px;
-            opacity: 0.5;
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: -5px;
-          }
-
-          .left-side {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            .quantity {
-              border-right: 1px solid #ccc;
-              width: 50px;
-              height: 100%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-
-            .remove-button {
-              width: 22px;
-              height: 100%;
-              opacity: 0.5;
-              margin: 0 10px;
-              font-size: 22px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-          }
-        }
-      }
-
-      .empty-list {
-        line-height: 70px;
-      }
-    }
-
   }
 
   .image-placeholder {
@@ -335,6 +270,79 @@ $main-color: #007bff;
 
   .submit-button {
     line-height: 60px;
+  }
+}
+
+.label {
+  text-align: right;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.ingredients-container {
+  .list {
+    .ingredient-item {
+      display: flex;
+      height: 40px;
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .name {
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .v-icon {
+        background-size: 100%;
+        width: 22px;
+        height: 22px;
+        opacity: 0.5;
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -5px;
+      }
+
+      .left-side {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .quantity {
+          border-right: 1px solid #ccc;
+          width: 50px;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .remove-button {
+          width: 22px;
+          height: 100%;
+          opacity: 0.5;
+          margin: 0 10px;
+          font-size: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  .empty-list {
+    line-height: 70px;
   }
 }
 

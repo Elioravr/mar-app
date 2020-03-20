@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {uploadImage, createNewMeal as createNewMealInDB} from '../services/api';
 import Page from './Page';
-import IngredientItem from './IngredientItem';
+import IngredientList from './IngredientList';
 
 const mockIngredients = {
   'blah-1': {
@@ -26,11 +26,6 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage}) =
 
   const [ingredientName, setIngredientName] = useState('');
   const [ingredientQuantity, setIngredientQuantity] = useState('');
-
-  const ingredientList = Object.keys(ingredients).map(id => ({
-    id,
-    ...ingredients[id]
-  }));
 
   const addNewIngredient = () => {
     if (!ingredientName || !ingredientQuantity) {
@@ -89,22 +84,7 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage}) =
       <Separator icon="🥑" />
 
       <div className="field">
-        <div className="label">מצרכים למנה</div>
-        <div className="ingredients-container">
-          {ingredientList.length === 0 ?
-              <div className="list empty-list">עוד לא הוספת מצרכים</div>
-            :
-            <div className="list">
-              {ingredientList.map(ingredient =>
-                <IngredientItem
-                  key={ingredient.id}
-                  ingredient={ingredient}
-                  removeIngredient={removeIngredient}
-                />
-              )}
-            </div>
-          }
-        </div>
+        <IngredientList ingredients={ingredients} removeIngredient={removeIngredient} isRemovable={true} />
       </div>
 
       <input type="text" placeholder="שם המצרך" value={ingredientName} onChange={(e) => setIngredientName(e.target.value)} />

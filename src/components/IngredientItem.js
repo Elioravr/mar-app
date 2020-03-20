@@ -1,6 +1,6 @@
 import React from 'react';
 
-const IngredientItem = ({ingredient, removeIngredient}) => {
+const IngredientItem = ({ingredient, removeIngredient, isRemovable}) => {
   const handleRemoveClick = () => {
     removeIngredient(ingredient.id);
   }
@@ -11,7 +11,7 @@ const IngredientItem = ({ingredient, removeIngredient}) => {
       <div className="name">{ingredient.name}</div>
       <div className="left-side">
         <div className="quantity">{ingredient.quantity}</div>
-        <div className="remove-button" onClick={handleRemoveClick}><span>🗑</span></div>
+        {isRemovable && <div className="remove-button" onClick={handleRemoveClick}><span>🗑</span></div>}
       </div>
     </div>
   );

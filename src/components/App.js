@@ -48,6 +48,7 @@ function App() {
       <NewMealPage
         isCurrentPage={currentPage === NEW_MEAL_PAGE}
         setGlobalIsLoading={setGlobalIsLoading}
+        moveToMealsListPage={moveToMealsListPage}
       />
       <LoadingOverlay isVisible={isLoading} />
     </div>

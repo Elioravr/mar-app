@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {uploadImage} from '../services/api';
+import {uploadImage, createNewMeal as createNewMealInDB} from '../services/api';
 import Page from './Page';
 import IngredientItem from './IngredientItem';
 
@@ -18,11 +18,14 @@ const mockIngredients = {
   }
 };
 
-const NewMealPage = ({isCurrentPage, setGlobalIsLoading}) => {
-  const [ingredients, setIngredients] = useState(mockIngredients);
+const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage}) => {
+  const [mealName, setMealName] = useState('');
+  const [duration, setDuration] = useState('');
+  const [ingredients, setIngredients] = useState({});
+  const [imageSrc, setImageSrc] = useState('');
+
   const [ingredientName, setIngredientName] = useState('');
   const [ingredientQuantity, setIngredientQuantity] = useState('');
-  const [imageURL, setImageURL] = useState('');
 
   const ingredientList = Object.keys(ingredients).map(id => ({
     id,
@@ -57,15 +60,31 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading}) => {
 
     setGlobalIsLoading(true);
     uploadImage(file).then((downloadURL) => {
-      setImageURL(downloadURL);
+      setImageSrc(downloadURL);
       setGlobalIsLoading(false);
+    });
+  }
+
+  const createNewMeal = () => {
+    const meal = {
+      name: mealName,
+      duration: duration,
+      ingredients,
+      imageSrc,
+      createdAt: Date.now()
+    }
+
+    setGlobalIsLoading(true);
+    createNewMealInDB(meal).then(() => {
+      setGlobalIsLoading(false);
+      moveToMealsListPage();
     });
   }
 
   return (
     <Page isCurrentPage={isCurrentPage} className="new-meal-page">
-      <input type="text" placeholder="תן שם למנה" />
-      <input type="text" placeholder="כמה זמן לוקח להכין אותה?" />
+      <input type="text" placeholder="תן שם למנה" value={mealName} onChange={(e) => setMealName(e.target.value)} />
+      <input type="text" placeholder="כמה זמן לוקח להכין אותה?" value={duration} onChange={(e) => setDuration(e.target.value)} />
 
       <Separator icon="🥑" />
 
@@ -94,8 +113,8 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading}) => {
 
       <Separator icon="🍩" />
 
-      <div className="image-placeholder" style={{backgroundImage: `url(${imageURL})`}}>
-        {!imageURL &&
+      <div className="image-placeholder" style={{backgroundImage: `url(${imageSrc})`}}>
+        {!imageSrc &&
           <>
             <div className="icon"><span>🍽</span></div>
             <div>עוד לא העלית תמונה!</div>
@@ -107,7 +126,7 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading}) => {
 
       <Separator icon="🍅" />
 
-      <div className="submit-button" onClick={addNewIngredient}>הוסף מנה!</div>
+      <div className="submit-button" onClick={createNewMeal}>הוסף מנה!</div>
     </Page>
   );
 }

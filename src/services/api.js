@@ -30,10 +30,12 @@ export const fetchMeals = () => {
 
 export const uploadImage = (file) => {
   return storageRef.put(file).then((snap) => {
-    console.log('api.js snap', snap)
-    console.log('api.js snap.ref.getDownloadURL()', snap.ref.getDownloadURL())
     return snap.ref.getDownloadURL().then((downloadURL) => {
       return downloadURL;
     });
   });
+}
+
+export const createNewMeal = (meal) => {
+  return database.ref('meals').push(meal);
 }

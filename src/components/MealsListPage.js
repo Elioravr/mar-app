@@ -8,14 +8,13 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage}) => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-
   useEffect(() => {
     setIsLoading(true);
     fetchMeals().then((meals) => {
       setMeals(meals);
       setIsLoading(false);
     })
-  }, []);
+  }, [isCurrentPage]);
 
   return (
     <Page isCurrentPage={isCurrentPage}>

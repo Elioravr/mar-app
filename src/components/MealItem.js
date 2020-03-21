@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import IngredientList from './IngredientList';
 
-const MealItem = ({meal, removeMeal}) => {
+const MealItem = ({meal, removeMeal, startEditOfMeal}) => {
   const [isLoadingImage, setIsLoadingImage] = useState(true);
   const [isIngredientListVisible, setIsIngredientListVisible] = useState(false);
 
@@ -18,6 +18,10 @@ const MealItem = ({meal, removeMeal}) => {
     removeMeal(meal)
   }
 
+  const editMeal = () => {
+    startEditOfMeal(meal);
+  }
+
   return (
     <div className="meal" onClick={handleMealClick}>
       <img className={`image ${isLoadingImage ? 'loading' : ''}`} src={meal.imageSrc} alt="" onLoad={handleImageLoaded} />
@@ -29,7 +33,7 @@ const MealItem = ({meal, removeMeal}) => {
         <IngredientList ingredients={meal.ingredients} />
       </div>
       <div className="controls">
-        <div className="button">ערוך</div>
+        <div className="button" onClick={editMeal}>ערוך</div>
         <div className="button" onClick={handleRemoveButtonClick}>מחק</div>
       </div>
     </div>

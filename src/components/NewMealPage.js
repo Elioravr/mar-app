@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {uploadImage, createNewMeal as createNewMealInDB} from '../services/api';
 import Page from './Page';
 import IngredientList from './IngredientList';
@@ -18,11 +18,29 @@ const mockIngredients = {
   }
 };
 
-const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage}) => {
+const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage, mealToEdit}) => {
   const [mealName, setMealName] = useState('');
   const [duration, setDuration] = useState('');
   const [ingredients, setIngredients] = useState({});
   const [imageSrc, setImageSrc] = useState('');
+
+  useEffect(() => {
+    if (mealToEdit) {
+      setMealName(mealToEdit.name);
+      setDuration(mealToEdit.duration);
+      setIngredients(mealToEdit.ingredients || {});
+      setImageSrc(mealToEdit.imageSrc);
+    }
+
+    if (!isCurrentPage) {
+      setMealName('');
+      setDuration('');
+      setIngredients({});
+      setImageSrc('');
+      setIngredientName('');
+      setIngredientQuantity('');
+    }
+  }, [mealToEdit, isCurrentPage])
 
   const [ingredientName, setIngredientName] = useState('');
   const [ingredientQuantity, setIngredientQuantity] = useState('');
@@ -66,7 +84,8 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage}) =
       duration: duration,
       ingredients,
       imageSrc,
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      id: mealToEdit ? mealToEdit.id : null
     }
 
     setGlobalIsLoading(true);

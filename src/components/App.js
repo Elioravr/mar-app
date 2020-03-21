@@ -25,6 +25,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
   // const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
   const [isLoading, setIsLoading] = useState(false);
+  const [mealToEdit, setMealToEdit] = useState(null);
 
   const moveToNewMealPage = () => {
     scrollToTop();
@@ -32,10 +33,15 @@ function App() {
   };
   const moveToMealsListPage = () => {
     scrollToTop();
-    setCurrentPage(MEALS_LIST_PAGE)
+    setCurrentPage(MEALS_LIST_PAGE);
+    setMealToEdit(null);
   };
   const setGlobalIsLoading = (value) => {
     setIsLoading(value)
+  }
+  const startEditOfMeal = (meal) => {
+    setMealToEdit(meal);
+    moveToNewMealPage();
   }
 
   return (
@@ -44,11 +50,13 @@ function App() {
       <MealsListPage
         moveToNewMealPage={moveToNewMealPage}
         isCurrentPage={currentPage === MEALS_LIST_PAGE}
+        startEditOfMeal={startEditOfMeal}
       />
       <NewMealPage
         isCurrentPage={currentPage === NEW_MEAL_PAGE}
         setGlobalIsLoading={setGlobalIsLoading}
         moveToMealsListPage={moveToMealsListPage}
+        mealToEdit={mealToEdit}
       />
       <LoadingOverlay isVisible={isLoading} />
     </div>

@@ -39,7 +39,11 @@ export const uploadImage = (file) => {
 }
 
 export const createNewMeal = (meal) => {
-  return database.ref('meals').push(meal);
+  if (meal.id) {
+    return database.ref(`meals/${meal.id}`).set(meal);
+  } else {
+    return database.ref('meals').push(meal);
+  }
 }
 
 export const removeMeal = (mealId) => {

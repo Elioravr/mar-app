@@ -4,7 +4,7 @@ import Loading from './Loading';
 import MealItem from './MealItem';
 import {fetchMeals, removeMeal as removeMealInDB} from '../services/api';
 
-const MealsListPage = ({moveToNewMealPage, isCurrentPage}) => {
+const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal}) => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [mealToDelete, setMealToDelete] = useState(null);
@@ -47,7 +47,7 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage}) => {
       {isLoading ?
         <Loading />
         :
-        meals.map(meal => <MealItem key={meal.id} meal={meal} removeMeal={openRemoveModal} />)
+        meals.map(meal => <MealItem key={meal.id} meal={meal} removeMeal={openRemoveModal} startEditOfMeal={startEditOfMeal} />)
       }
     </Page>
   );

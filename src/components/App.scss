@@ -35,9 +35,9 @@ $main-color: #007bff;
     direction: ltr;
     font-family: 'Dancing Script', cursive;
     position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
+    left: -1px;
+    right: -1px;
+    top: -1px;
     height: $navbar-height;
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.2);
     color: $main-color;
@@ -477,3 +477,10 @@ $main-color: #007bff;
     background: white;
   }
 }
+
+// /* Dark mode */
+// @media (prefers-color-scheme: dark) {
+//   .navbar {
+//     background: #333 !important;
+//   }
+// }

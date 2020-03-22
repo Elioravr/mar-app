@@ -42,6 +42,7 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage, me
       setImageSrc('');
       setIngredientName('');
       setIngredientQuantity('');
+      setTags({});
     }
   }, [mealToEdit, isCurrentPage])
 

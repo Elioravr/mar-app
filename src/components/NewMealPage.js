@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {uploadImage, createNewMeal as createNewMealInDB} from '../services/api';
+import {fetchTags, uploadImage, createNewMeal as createNewMealInDB} from '../services/api';
 import Page from './Page';
 import IngredientList from './IngredientList';
+import TagsManager from './TagsManager';
 
 const mockIngredients = {
   'blah-1': {
@@ -99,6 +100,10 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage, me
     <Page isCurrentPage={isCurrentPage} className="new-meal-page">
       <input type="text" placeholder="תן שם למנה" value={mealName} onChange={(e) => setMealName(e.target.value)} />
       <input type="text" placeholder="כמה זמן לוקח להכין אותה?" value={duration} onChange={(e) => setDuration(e.target.value)} />
+
+      <Separator icon="🥐" />
+
+      <TagsManager />
 
       <Separator icon="🥑" />
 

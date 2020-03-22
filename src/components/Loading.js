@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 let intervalId;
-const Loading = () => {
+const Loading = ({text='סבלנות מאמי...', loadingSize='large'}) => {
   const icons = ['🍔', '🍕', '🥡', '🥗', '🍪'];
   const [currentStage, setCurrentStage] = useState(0);
 
@@ -24,9 +24,9 @@ const Loading = () => {
   })
 
   return (
-    <div className="loading-container">
+    <div className={`loading-container ${loadingSize}`}>
       {icons.map((icon, index) => currentStage === index ? <div key={index} className="stage">{icon}</div> : null)}
-      <span className="text">סבלנות מאמי...</span>
+      <span className="text">{text}</span>
     </div>
   );
 }

@@ -49,3 +49,15 @@ export const createNewMeal = (meal) => {
 export const removeMeal = (mealId) => {
   return database.ref(`meals/${mealId}`).remove();
 }
+
+export const fetchTags = () => {
+  return database.ref('tags').once('value').then((snap) => {
+    const meals = snap.val();
+
+    const mealsWithSort = Object.keys(meals).map(mealId => {
+      return {id: mealId, ...meals[mealId]}
+    });
+
+    return mealsWithSort.sort((a, b) => b.createdAt - a.createdAt);
+  })
+}

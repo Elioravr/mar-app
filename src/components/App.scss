@@ -349,6 +349,18 @@ $main-color: #007bff;
 .loading-container {
   padding: 50px;
 
+  &.small {
+    padding: 30px;
+
+    .stage {
+      font-size: 40px;
+    }
+
+    .text {
+      font-size: 15px;
+    }
+  }
+
   .stage {
     font-size: 70px;
     animation: icon-popup 1s ease-in-out infinite;
@@ -443,6 +455,31 @@ $main-color: #007bff;
       }
     }
   }
+}
+
+.tag-manager-container {
+  .title {
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+
+  .tags-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+.tag {
+  font-size: 20px;
+  background: #005abb;
+  color: white;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 3px;
 }
 
 @keyframes fade-in {

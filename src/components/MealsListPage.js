@@ -2,19 +2,27 @@ import React, {useState, useEffect} from 'react';
 import Page from './Page';
 import Loading from './Loading';
 import MealItem from './MealItem';
-import {fetchMeals, removeMeal as removeMealInDB} from '../services/api';
+import {fetchMeals, fetchTags, removeMeal as removeMealInDB} from '../services/api';
 
 const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal}) => {
   const [meals, setMeals] = useState([]);
+  const [tags, setTags] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [mealToDelete, setMealToDelete] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchMeals().then((meals) => {
-      setMeals(meals);
-      setIsLoading(false);
-    })
+    fetchMeals()
+      .then((meals) => {
+        setMeals(meals);
+        return fetchTags();
+      })
+      .then((tags) => {
+        setTags(tags);
+      })
+      .then(() => {
+        setIsLoading(false);
+      });
   }, [isCurrentPage]);
 
   const openRemoveModal = (meal) => {
@@ -47,7 +55,7 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal}) => {
       {isLoading ?
         <Loading />
         :
-        meals.map(meal => <MealItem key={meal.id} meal={meal} removeMeal={openRemoveModal} startEditOfMeal={startEditOfMeal} />)
+        meals.map(meal => <MealItem key={meal.id} meal={meal} tags={tags} removeMeal={openRemoveModal} startEditOfMeal={startEditOfMeal} />)
       }
     </Page>
   );

@@ -169,6 +169,17 @@ $main-color: #007bff;
         font-size: 18px;
         color: #777;
       }
+
+      .tags-list {
+        justify-content: flex-start;
+
+        .tag {
+          font-size: 15px;
+          padding: 3px;
+          margin: 5px;
+          margin-right: 0;
+        }
+      }
     }
 
     .controls {
@@ -462,24 +473,35 @@ $main-color: #007bff;
     font-size: 25px;
     margin-bottom: 20px;
   }
-
-  .tags-list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
 }
 
-.tag {
-  font-size: 20px;
-  background: #005abb;
-  color: white;
+.tags-list {
   display: flex;
-  text-align: center;
   justify-content: center;
-  margin: 5px;
-  padding: 5px 10px;
-  border-radius: 3px;
+  flex-wrap: wrap;
+
+  .tag {
+    font-size: 20px;
+    background: #005abb;
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 2px solid transparent;
+
+    &.selected {
+      border: 2px solid #005abb;
+      color: #005abb;
+      background: white;
+    }
+
+    &:active {
+      opacity: 0.5;
+    }
+  }
 }
 
 @keyframes fade-in {

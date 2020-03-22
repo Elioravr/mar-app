@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {fetchTags} from '../services/api';
 import Loading from './Loading';
 
-export default () => {
-  const [tags, setTags] = useState([]);
+export default ({updateTags, selectedTags}) => {
+  const [tags, setTags] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export default () => {
     fetchTags().then(tags => {
       setIsLoading(false);
       setTags(tags);
-    })
+    });
   }, []);
 
   return (
@@ -21,7 +21,22 @@ export default () => {
         <Loading text="טוען תאגים..." loadingSize="small" />
         :
         <div className="tags-list">
-          {tags.map(tag => <div key={tag.id} className="tag">{tag.name}</div>)}
+          {Object.keys(tags).map(tagId => {
+            const tag = tags[tagId];
+            const onClick = () => {
+              if (selectedTags[tagId]) {
+                const newSelectedTags = {...selectedTags};
+                Reflect.deleteProperty(newSelectedTags, tagId);
+
+                updateTags(newSelectedTags);
+              } else {
+                updateTags({...selectedTags, [tagId]: true});
+              }
+            };
+            const className = `tag ${selectedTags[tagId] ? 'selected' : ''}`;
+
+            return <div key={tagId} className={className} onClick={onClick}>{tag.name}</div>}
+          )}
         </div>
       }
     </div>

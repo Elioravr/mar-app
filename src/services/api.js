@@ -52,12 +52,8 @@ export const removeMeal = (mealId) => {
 
 export const fetchTags = () => {
   return database.ref('tags').once('value').then((snap) => {
-    const meals = snap.val();
+    const tags = snap.val();
 
-    const mealsWithSort = Object.keys(meals).map(mealId => {
-      return {id: mealId, ...meals[mealId]}
-    });
-
-    return mealsWithSort.sort((a, b) => b.createdAt - a.createdAt);
+    return tags;
   })
 }

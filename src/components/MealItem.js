@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import IngredientList from './IngredientList';
 
-const MealItem = ({meal, removeMeal, startEditOfMeal}) => {
+const MealItem = ({meal, removeMeal, startEditOfMeal, tags}) => {
   const [isLoadingImage, setIsLoadingImage] = useState(true);
   const [isIngredientListVisible, setIsIngredientListVisible] = useState(false);
 
@@ -28,6 +28,11 @@ const MealItem = ({meal, removeMeal, startEditOfMeal}) => {
       <div className="details">
         <div className="name">{meal.name}</div>
         <div className="prep-time">{meal.duration} הכנה</div>
+        <div className="tags-list">
+          {meal.tags && Object.keys(meal.tags).map(tagId => {
+            return <div key={`${meal.id}-${tagId}`} className="tag">{tags[tagId].name}</div>
+          })}
+        </div>
       </div>
       <div className={`meal-ingredients ${isIngredientListVisible ? 'visible' : ''}`}>
         <IngredientList ingredients={meal.ingredients} />

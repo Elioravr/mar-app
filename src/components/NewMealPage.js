@@ -24,6 +24,7 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage, me
   const [duration, setDuration] = useState('');
   const [ingredients, setIngredients] = useState({});
   const [imageSrc, setImageSrc] = useState('');
+  const [tags, setTags] = useState({});
 
   useEffect(() => {
     if (mealToEdit) {
@@ -31,6 +32,7 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage, me
       setDuration(mealToEdit.duration);
       setIngredients(mealToEdit.ingredients || {});
       setImageSrc(mealToEdit.imageSrc);
+      setTags(mealToEdit.tags || {});
     }
 
     if (!isCurrentPage) {
@@ -85,6 +87,7 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage, me
       duration: duration,
       ingredients,
       imageSrc,
+      tags,
       createdAt: Date.now(),
       id: mealToEdit ? mealToEdit.id : null
     }
@@ -103,7 +106,7 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage, me
 
       <Separator icon="🥐" />
 
-      <TagsManager />
+      <TagsManager updateTags={setTags} selectedTags={tags} />
 
       <Separator icon="🥑" />
 

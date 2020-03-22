@@ -548,3 +548,39 @@ $main-color: #007bff;
 //     background: #333 !important;
 //   }
 // }
+
+@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px)  {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  .page {
+    padding-right: 120px !important;
+    padding-left: 120px !important;
+  }
+
+  .meal {
+    .image {
+      height: 400px !important;
+    }
+  }
+}
+@media (min-width:961px)  {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .page {
+    padding-right: 250px !important;
+    padding-left: 250px !important;
+  }
+
+  .meal {
+    .image {
+      height: 450px !important;
+    }
+  }
+}
+@media (min-width:1300px) {
+  /* big landscape tablets, laptops, and desktops */
+  .page {
+    padding-right: 400px !important;
+    padding-left: 400px !important;
+  }
+}

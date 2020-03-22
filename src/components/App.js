@@ -14,7 +14,7 @@ const navbarProps = {
     shouldHaveProfile: true
   },
   [NEW_MEAL_PAGE]: {
-    title: 'New Meal?! 😱',
+    title: 'Create New Meal',
     shouldHaveCancelButton: true
   }
 }

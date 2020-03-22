@@ -33,7 +33,7 @@ $main-color: #007bff;
 
   .navbar {
     direction: ltr;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Courgette', cursive;
     position: fixed;
     left: -1px;
     right: -1px;
@@ -44,7 +44,7 @@ $main-color: #007bff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 40px;
+    font-size: 34px;
     background: white;
     padding: 0 15px;
     z-index: 1;
@@ -89,11 +89,16 @@ $main-color: #007bff;
       background-size: 100%;
       width: 25px;
       height: 25px;
-      font-size: 28px;
-      opacity: 0.5;
+      font-size: 25px;
+      font-family: 'Arial';
+      font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      &:active {
+        opacity: 0.7;
+      }
     }
   }
 

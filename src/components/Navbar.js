@@ -19,7 +19,7 @@ const Navbar = ({title, shouldHaveProfile, shouldHaveCancelButton, moveToMealsLi
         {shouldHaveProfile && isProfileOpen && <div className="backdrop"></div>}
         {shouldHaveProfile && <div className={profileClassName} onClick={handleProfileClick}></div>}
         {shouldHaveCancelButton &&
-          <div className="close-button" onClick={moveToMealsListPage}><span>✖️</span></div>
+          <div className="close-button" onClick={moveToMealsListPage}><span>X</span></div>
         }
       </div>
     )

@@ -34,7 +34,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [mealToEdit, setMealToEdit] = useState(null);
   const [filters, setFilters] = useState([]);
-  const [filterType, setFilterType] = useState('or');
+  const [filterType, setFilterType] = useState('and');
 
   const moveToNewMealPage = () => {
     scrollToTop();

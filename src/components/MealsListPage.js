@@ -72,7 +72,7 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal, filte
       {isLoading ?
         <Loading />
         :
-        meals.length === 0 ?
+        (meals.length === 0 && isCurrentPage) ?
           <EmptyMealsList />
           :
           meals.map(meal => <MealItem key={meal.id} meal={meal} tags={tags} removeMeal={openRemoveModal} startEditOfMeal={startEditOfMeal} />)
@@ -110,7 +110,38 @@ const RemoveModal = ({mealToDelete, closeRemoveModal, removeMeal}) => {
   );
 }
 
+let intervalId;
 const EmptyMealsList = () => {
+  const getNumberInRange = () => {
+    let number = Math.random() * 100;
+
+    while (number < 10 || number > 70) {
+      number = Math.random() * 100;
+    }
+
+    return number;
+  }
+
+  useEffect(() => {
+    intervalId = setInterval(() => {
+      console.log('blahh')
+      const emoji = document.createElement('div');
+      emoji.className = 'flying-sad-emoji';
+      emoji.style.left = `${getNumberInRange()}%`;
+      emoji.style.fontSize = `${getNumberInRange()}px`;
+      emoji.innerHTML = '😢';
+      emoji.addEventListener('animationend', () => {
+        document.querySelector('body').removeChild(emoji);
+      });
+
+      document.querySelector('body').appendChild(emoji);
+    }, 100);
+
+    return () => {
+      clearInterval(intervalId);
+    }
+  })
+
   return (
     <div className="empty-meals-list">אין מנות כאלה... 😢</div>
   );

@@ -614,6 +614,13 @@ $tag-background-color: #005abb;
   }
 }
 
+.flying-sad-emoji {
+  position: absolute;
+  font-size: 20px;
+  z-index: 0;
+  animation: falling 3s ease-in-out forwards;
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -644,6 +651,17 @@ $tag-background-color: #005abb;
   }
   100% {
     background: white;
+  }
+}
+
+@keyframes falling {
+  0% {
+    transform: translateY(0) rotate(-90deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(500px) rotate(90deg);
+    opacity: 0;
   }
 }
 

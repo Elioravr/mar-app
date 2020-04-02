@@ -629,6 +629,7 @@ $tag-background-color: #005abb;
   font-size: 20px;
   z-index: 0;
   animation: falling 3s ease-in-out forwards;
+  pointer-events: none;
 }
 
 @keyframes fade-in {

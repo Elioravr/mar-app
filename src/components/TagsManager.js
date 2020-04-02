@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {fetchTags} from '../services/api';
 import Loading from './Loading';
 
-export default ({updateTags, selectedTags}) => {
+export default ({updateTags, selectedTags, title="להוסיף תגיות למנה?"}) => {
   const [tags, setTags] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,7 +16,7 @@ export default ({updateTags, selectedTags}) => {
 
   return (
     <div className="tag-manager-container">
-      <div className="title">להוסיף תגיות למנה?</div>
+      <div className="title">{title}</div>
       {isLoading ?
         <Loading text="טוען תאגים..." loadingSize="small" />
         :

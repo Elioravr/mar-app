@@ -3,10 +3,12 @@ import Navbar from './Navbar';
 import MealsListPage from './MealsListPage';
 import NewMealPage from './NewMealPage';
 import LoadingOverlay from './LoadingOverlay';
+import FiltersPage from './FiltersPage';
 import './App.scss';
 
 const MEALS_LIST_PAGE = 'mealsListPage';
 const NEW_MEAL_PAGE = 'newMealPage';
+const FILTERS_PAGE = 'filtersPage';
 
 const navbarProps = {
   [MEALS_LIST_PAGE]: {
@@ -16,6 +18,10 @@ const navbarProps = {
   [NEW_MEAL_PAGE]: {
     title: 'Create New Meal',
     shouldHaveCancelButton: true
+  },
+  [FILTERS_PAGE]: {
+    title: 'Set Filters',
+    shouldHaveCancelButton: true
   }
 }
 
@@ -24,8 +30,11 @@ const scrollToTop = () => window.scrollTo(0, 0, 'easeInOutQuint');
 function App() {
   const [currentPage, setCurrentPage] = useState(MEALS_LIST_PAGE);
   // const [currentPage, setCurrentPage] = useState(NEW_MEAL_PAGE);
+  // const [currentPage, setCurrentPage] = useState(FILTERS_PAGE);
   const [isLoading, setIsLoading] = useState(false);
   const [mealToEdit, setMealToEdit] = useState(null);
+  const [filters, setFilters] = useState([]);
+  const [filterType, setFilterType] = useState('or');
 
   const moveToNewMealPage = () => {
     scrollToTop();
@@ -43,6 +52,9 @@ function App() {
     setMealToEdit(meal);
     moveToNewMealPage();
   }
+  const openFiltersPage = () => {
+    setCurrentPage(FILTERS_PAGE);
+  }
 
   return (
     <div className="App">
@@ -51,6 +63,8 @@ function App() {
         moveToNewMealPage={moveToNewMealPage}
         isCurrentPage={currentPage === MEALS_LIST_PAGE}
         startEditOfMeal={startEditOfMeal}
+        filters={filters}
+        filterType={filterType}
       />
       <NewMealPage
         isCurrentPage={currentPage === NEW_MEAL_PAGE}
@@ -58,7 +72,24 @@ function App() {
         moveToMealsListPage={moveToMealsListPage}
         mealToEdit={mealToEdit}
       />
+      <FiltersPage
+        isCurrentPage={currentPage === FILTERS_PAGE}
+        filters={filters}
+        setFilters={setFilters}
+        moveToMealsListPage={moveToMealsListPage}
+        filterType={filterType}
+        setFilterType={setFilterType}
+      />
       <LoadingOverlay isVisible={isLoading} />
+
+      {currentPage === MEALS_LIST_PAGE &&
+          <div className="sort-button" onClick={openFiltersPage}>
+            <span>סנן</span>
+            {Object.keys(filters).length !== 0 &&
+              <div className="filters-counter">{Object.keys(filters).length}</div>
+            }
+          </div>
+      }
     </div>
   );
 }

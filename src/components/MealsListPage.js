@@ -4,7 +4,7 @@ import Loading from './Loading';
 import MealItem from './MealItem';
 import {fetchMeals, fetchTags, removeMeal as removeMealInDB} from '../services/api';
 
-const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal}) => {
+const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal, filters, filterType}) => {
   const [meals, setMeals] = useState([]);
   const [tags, setTags] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +22,23 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal}) => {
       })
       .then(() => {
         setIsLoading(false);
+
+        if (Object.keys(filters).length !== 0) {
+          setMeals(meals.filter(meal => {
+            if (filterType === 'or') {
+              return Object.keys(filters)
+                .some(filter =>
+                  Object.keys(meal.tags).includes(filter)
+                );
+            } else {
+              return Object.keys(filters)
+                .every(filter =>
+                  Object.keys(meal.tags).includes(filter)
+                );
+            }
+
+          }));
+        }
       });
   }, [isCurrentPage]);
 
@@ -55,7 +72,10 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal}) => {
       {isLoading ?
         <Loading />
         :
-        meals.map(meal => <MealItem key={meal.id} meal={meal} tags={tags} removeMeal={openRemoveModal} startEditOfMeal={startEditOfMeal} />)
+        meals.length === 0 ?
+          <EmptyMealsList />
+          :
+          meals.map(meal => <MealItem key={meal.id} meal={meal} tags={tags} removeMeal={openRemoveModal} startEditOfMeal={startEditOfMeal} />)
       }
     </Page>
   );
@@ -87,6 +107,12 @@ const RemoveModal = ({mealToDelete, closeRemoveModal, removeMeal}) => {
         </div>
       </div>
     </div>
+  );
+}
+
+const EmptyMealsList = () => {
+  return (
+    <div className="empty-meals-list">אין מנות כאלה... 😢</div>
   );
 }
 

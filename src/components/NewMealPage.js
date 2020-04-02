@@ -3,6 +3,7 @@ import {fetchTags, uploadImage, createNewMeal as createNewMealInDB} from '../ser
 import Page from './Page';
 import IngredientList from './IngredientList';
 import TagsManager from './TagsManager';
+import Separator from './Separator';
 
 const mockIngredients = {
   'blah-1': {
@@ -136,14 +137,6 @@ const NewMealPage = ({isCurrentPage, setGlobalIsLoading, moveToMealsListPage, me
 
       <div className="submit-button" onClick={createNewMeal}>הוסף מנה!</div>
     </Page>
-  );
-}
-
-const Separator = ({icon}) => {
-  return (
-    <div className="separator">
-      <span>{icon}</span>
-    </div>
   );
 }
 

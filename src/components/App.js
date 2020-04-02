@@ -86,7 +86,10 @@ function App() {
           <div className="sort-button" onClick={openFiltersPage}>
             <span>סנן</span>
             {Object.keys(filters).length !== 0 &&
-              <div className="filters-counter">{Object.keys(filters).length}</div>
+              <div className="filter-indicator filters-counter">{Object.keys(filters).length}</div>
+            }
+            {Object.keys(filters).length !== 0 &&
+              <div className="filter-indicator filter-type">{filterType === 'or' ? 'או' : 'וגם'}</div>
             }
           </div>
       }

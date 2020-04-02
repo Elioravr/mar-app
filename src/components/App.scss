@@ -124,11 +124,10 @@ $tag-background-color: #005abb;
       opacity: 0.7;
     }
 
-    .filters-counter {
+    .filter-indicator {
       position: absolute;
       width: 30px;
       height: 30px;
-      top: -8px;
       left: -8px;
       background: $main-color;
       font-size: 15px;
@@ -136,7 +135,18 @@ $tag-background-color: #005abb;
       display: flex;
       justify-content: center;
       align-items: center;
+
+      &.filters-counter {
+        bottom: -8px;
+        left: -8px;
+      }
+
+      &.filter-type {
+        top: -8px;
+        right: -8px;
+      }
     }
+
   }
 
   .add-meal-button {

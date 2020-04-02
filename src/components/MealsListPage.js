@@ -6,6 +6,7 @@ import {fetchMeals, fetchTags, removeMeal as removeMealInDB} from '../services/a
 
 const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal, filters, filterType}) => {
   const [meals, setMeals] = useState([]);
+  const [filteredMeals, setFilteredMeals] = useState([]);
   const [tags, setTags] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [mealToDelete, setMealToDelete] = useState(null);
@@ -24,20 +25,22 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal, filte
         setIsLoading(false);
 
         if (Object.keys(filters).length !== 0) {
-          setMeals(meals.filter(meal => {
+          const mealsAfterFilter = meals.filter(meal => {
             if (filterType === 'or') {
               return Object.keys(filters)
-                .some(filter =>
-                  Object.keys(meal.tags).includes(filter)
-                );
+                .some(filter => {
+                  return Object.keys(meal.tags).includes(filter);
+                });
             } else {
               return Object.keys(filters)
-                .every(filter =>
-                  Object.keys(meal.tags).includes(filter)
-                );
+                .every(filter => {
+                  return Object.keys(meal.tags).includes(filter);
+                });
             }
 
-          }));
+          });
+
+          setFilteredMeals(mealsAfterFilter);
         }
       });
   }, [isCurrentPage]);
@@ -64,6 +67,8 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal, filte
       });
   }
 
+  const mealsToPresent = Object.keys(filters).length === 0 ? meals : filteredMeals;
+
   return (
     <Page isCurrentPage={isCurrentPage}>
       <AddMealButton onClick={moveToNewMealPage} />
@@ -72,10 +77,10 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal, filte
       {isLoading ?
         <Loading />
         :
-        (meals.length === 0 && isCurrentPage) ?
+        (mealsToPresent.length === 0 && isCurrentPage) ?
           <EmptyMealsList />
           :
-          meals.map(meal => <MealItem key={meal.id} meal={meal} tags={tags} removeMeal={openRemoveModal} startEditOfMeal={startEditOfMeal} />)
+          mealsToPresent.map(meal => <MealItem key={meal.id} meal={meal} tags={tags} removeMeal={openRemoveModal} startEditOfMeal={startEditOfMeal} />)
       }
     </Page>
   );
@@ -124,7 +129,6 @@ const EmptyMealsList = () => {
 
   useEffect(() => {
     intervalId = setInterval(() => {
-      console.log('blahh')
       const emoji = document.createElement('div');
       emoji.className = 'flying-sad-emoji';
       emoji.style.left = `${getNumberInRange()}%`;

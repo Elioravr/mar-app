@@ -183,6 +183,11 @@ $tag-background-color: #005abb;
     }
   }
 
+  .meals-container {
+    justify-content: center;
+    align-items: flex-start;
+  }
+
   .meal {
     margin: 20px auto;
     background: white;
@@ -684,37 +689,51 @@ $tag-background-color: #005abb;
 // }
 
 @media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ }
-@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
-@media (min-width:641px)  {
+@media (min-width:481px)  {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+
+}
+
+@media (min-width:740px)  {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   .page {
-    padding-right: 120px !important;
-    padding-left: 120px !important;
-  }
+    padding-right: 40px !important;
+    padding-left: 40px !important;
 
-  .meal {
-    .image {
-      height: 400px !important;
+    .meals-container {
+      display: flex;
+      flex-wrap: wrap;
+
+      .meal {
+        width: 330px;
+
+        .image {
+          height: 300px !important;
+        }
+      }
     }
   }
 }
-@media (min-width:961px)  {
+@media (min-width:1000px)  {
   /* tablet, landscape iPad, lo-res laptops ands desktops */
   .page {
-    padding-right: 250px !important;
-    padding-left: 250px !important;
-  }
+    padding-right: 60px !important;
+    padding-left: 60px !important;
 
-  .meal {
-    .image {
-      height: 450px !important;
+    .meals-container {
+      display: flex;
+      flex-wrap: wrap;
+
+      .meal {
+        width: 430px;
+
+        .image {
+          height: 300px !important;
+        }
+      }
     }
   }
 }
 @media (min-width:1300px) {
   /* big landscape tablets, laptops, and desktops */
-  .page {
-    padding-right: 400px !important;
-    padding-left: 400px !important;
-  }
 }

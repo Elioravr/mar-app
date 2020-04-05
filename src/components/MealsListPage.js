@@ -70,18 +70,20 @@ const MealsListPage = ({moveToNewMealPage, isCurrentPage, startEditOfMeal, filte
   const mealsToPresent = Object.keys(filters).length === 0 ? meals : filteredMeals;
 
   return (
-    <Page isCurrentPage={isCurrentPage}>
+    <Page isCurrentPage={isCurrentPage} className="meals-list-page">
       <AddMealButton onClick={moveToNewMealPage} />
       <RemoveModal mealToDelete={mealToDelete} closeRemoveModal={closeRemoveModal} removeMeal={removeMeal} />
 
-      {isLoading ?
-        <Loading />
-        :
-        (mealsToPresent.length === 0 && isCurrentPage) ?
-          <EmptyMealsList />
+      <div className="meals-container">
+        {isLoading ?
+          <Loading />
           :
-          mealsToPresent.map(meal => <MealItem key={meal.id} meal={meal} tags={tags} removeMeal={openRemoveModal} startEditOfMeal={startEditOfMeal} />)
-      }
+          (mealsToPresent.length === 0 && isCurrentPage) ?
+            <EmptyMealsList />
+            :
+            mealsToPresent.map(meal => <MealItem key={meal.id} meal={meal} tags={tags} removeMeal={openRemoveModal} startEditOfMeal={startEditOfMeal} />)
+        }
+      </div>
     </Page>
   );
 }

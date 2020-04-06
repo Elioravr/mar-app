@@ -694,18 +694,18 @@ $tag-background-color: #005abb;
 
 }
 
-@media (min-width:740px)  {
+@media (min-width:760px)  {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   .page {
     padding-right: 40px !important;
     padding-left: 40px !important;
 
     .meals-container {
-      display: flex;
-      flex-wrap: wrap;
 
       .meal {
+        display: inline-block;
         width: 330px;
+        margin: 20px 5px;
 
         .image {
           height: 300px !important;
@@ -721,10 +721,9 @@ $tag-background-color: #005abb;
     padding-left: 60px !important;
 
     .meals-container {
-      display: flex;
-      flex-wrap: wrap;
 
       .meal {
+        display: inline-block;
         width: 430px;
 
         .image {
